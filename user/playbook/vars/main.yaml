@@ -1,8 +1,0 @@
-users:
-  - name: 'automgmt'
-    home: '/home/automgmt'
-  - name: 'fetch_user'
-    home: '/home/fetch_user'
-sshkey: |
-  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjXXS5qq53F4MSrLKirift+WYL7biGaxWRrFlCntAGPNA3KsXLv42B4OfYeJ6UfKTvxLAPs3rivK08dtCbnMxyIxig3KNpc1zJ01Wfj/WHAKBYL8SwlLIdwuS5fOftXc2uNgkXIsbGW+M1KT/7s28Al0kYAu4Q/hru93dagSRPnrTm5okCnkIxXDkozmFAy9jV0nn/3Fh4RNhBFaSHit+FLjAhCkPEz/IoUTFaZPuFzQuf5zJ7X7aE56EnSPJt5OhG+06GTOfvuEKWeuXZ/l5SbKPzA8vzEQI8qhOhNKTUM07qebeW+nahzX9bZMU4Ny6jGQPZ0WHihpDh6utgvZQecQ2fVg9bwpw4fIFEZ8NOQuylchn+VX/JQHXe1IjxDdTqnd2Va2BPHvX0ktr4pfujOU4TmM4goMgJfSGTbQuJyTuXJfNj4Y1QPjzQUazXexLF503EauwXVPgKNETZy3+RIBHTKbdem9tO9JVQZYEn27yzmsWQqEAY2tZxw/oNoL8= automgmt
-

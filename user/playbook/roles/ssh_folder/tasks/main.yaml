@@ -1,9 +1,0 @@
-- name: Set up .ssh directory for each user
-  ansible.builtin.file:
-    path: "{{ item.home }}/.ssh"
-    state: directory
-    mode: '0700'
-    owner: "{{ item.name }}"
-    group: "{{ item.name }}"
-  loop: "{{ users }}"
-  become: yes
