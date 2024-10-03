@@ -3,7 +3,7 @@
 
 Ansible code for Deploying a Fetch Validator on
 
-- Mainnet: fetchub-5
+- Mainnet: fetchhub-4
 - Testnet: dorado-1
 
 
