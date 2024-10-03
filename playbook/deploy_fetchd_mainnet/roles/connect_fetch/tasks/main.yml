@@ -1,0 +1,24 @@
+---
+- name: Configure Fetch chain ID
+  become: yes
+  command: "/root/go/bin/fetchd config chain-id {{ fetchchainid }}"
+
+- name: Configure Fetch node
+  become: yes
+  command: /root/go/bin/fetchd config node https://rpc-fetchhub.fetch.ai:443
+
+- name: Check if /root/.fetchd exists
+  ansible.builtin.stat:
+    path: /root/.fetchd
+  register: fetchd_dir
+
+- name: Initialize Fetch with chain ID
+  become: yes
+  command: "/root/go/bin/fetchd init {{ validatorname }} --chain-id {{ fetchchainid }}"
+  when: not fetchd_dir.stat.exists
+
+- name: Download Fetch genesis file
+  become: yes
+  get_url:
+    url: https://raw.githubusercontent.com/fetchai/genesis-fetchhub/{{ fetchchainid }}/{{ fetchchainid }}/data/{{ genesis_file }}
+    dest: ~/.fetchd/config/genesis.json

@@ -1,0 +1,21 @@
+---
+- name: Debug go_ver
+  debug:
+    var: gover
+
+- name: Download Go binary
+  get_url:
+    url: "https://go.dev/dl/{{go_ver}}.linux-amd64.tar.gz"
+    dest: "/tmp/{{go_ver}}.linux-amd64.tar.gz"
+
+- name: Extract Go binary to /usr/local
+  ansible.builtin.unarchive:
+    src: "/tmp/{{go_ver}}.linux-amd64.tar.gz"
+    dest: /usr/local
+    remote_src: yes
+
+- name: Update PATH for Go
+  ansible.builtin.lineinfile:
+    path: /etc/profile
+    line: 'export PATH=$PATH:/usr/local/go/bin'
+    state: present

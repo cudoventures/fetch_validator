@@ -1,0 +1,52 @@
+---
+
+- name: Ensure Go is available
+  command: "{{ go_bin_path }} version"
+  register: go_version
+  failed_when: go_version.rc != 0
+  changed_when: false
+
+- name: Clone Fetch repository
+  become: yes
+  git:
+    repo: https://github.com/fetchai/fetchd.git
+    dest: "{{ fetch_user_home }}/fetchd"
+
+- name: Build Fetch (verbose)
+  become: yes
+  command: make build
+  args:
+    chdir: "{{ fetch_user_home }}/fetchd"
+  environment:
+    PATH: "{{ go_bin_path | dirname }}:{{ ansible_env.PATH }}"
+  register: build_output
+  async: 3600  # Allow up to 1 hour for the build to complete
+  poll: 10     # Poll every 10 seconds to capture output
+  no_log: false
+  ignore_errors: true
+
+- name: Display build output
+  debug:
+    var: build_output.stdout_lines
+
+#- name: Build Fetch
+#  make:
+#    chdir: "{{ fetch_user_home }}/fetchd"
+#    target: build
+#  environment:
+#    PATH: "{{ go_bin_path | dirname }}:{{ ansible_env.PATH }}"
+
+- name: Install Fetch
+  become: yes
+  make:
+    chdir: "{{ fetch_user_home }}/fetchd"
+    target: install
+  environment:
+    PATH: "{{ go_bin_path | dirname }}:{{ ansible_env.PATH }}"
+
+- name: Update PATH for Fetch
+  become: yes
+  lineinfile:
+    path: /etc/profile
+    line: 'export PATH=$PATH:{{ fetch_user_home }}/go/bin'
+    state: present

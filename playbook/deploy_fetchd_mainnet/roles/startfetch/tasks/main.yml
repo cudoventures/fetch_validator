@@ -1,0 +1,29 @@
+---
+
+- name: Create a symbolic link for fetchd
+  ansible.builtin.file:
+    src: /root/go/bin/fetchd
+    dest: /usr/local/bin/fetchd
+    state: link
+
+- name: Create Fetch service unit file
+  become: yes
+  template:
+    src: fetchd.service.j2
+    dest: /etc/systemd/system/fetchd.service
+  notify:
+    - Reload systemd
+
+- name: Start Fetch service
+  become: yes
+  systemd:
+    name: fetchd
+    state: started
+    enabled: yes
+
+- name: Ensure Fetch service is running
+  become: yes
+  systemd:
+    name: fetchd
+    state: started
+    enabled: yes

@@ -1,0 +1,26 @@
+- name: Check if "{{ diskmount }}"  exists
+  ansible.builtin.stat:
+    path: "{{ diskmount }}"
+  register: sdb1_stat
+
+- name: Check if "{{ diskpart }}" is formatted
+  ansible.builtin.stat:
+    path: "{{ diskpart }}"
+  register: disk_stat
+  when: not sdb1_stat.stat.exists
+
+- name: Partition disk "{{ diskpart }}"
+  become: yes
+  parted:
+    device: "{{ diskpart }}"
+    number: 1
+    state: present
+    part_type: primary
+  when: not sdb1_stat.stat.exists
+
+- name: Format "{{ diskmount }}" to ext3
+  become: yes
+  filesystem:
+    fstype: ext3
+    dev: "{{ diskmount }}"
+  when: not sdb1_stat.stat.exists

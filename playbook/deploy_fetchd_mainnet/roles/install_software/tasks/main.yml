@@ -1,0 +1,12 @@
+---
+- name: Install required software packages
+  apt:
+    name:
+      - make
+      - gcc
+      - git
+      - curl
+      - btop
+      - nmap
+      - screen
+    state: present

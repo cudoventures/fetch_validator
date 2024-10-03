@@ -1,0 +1,22 @@
+---
+- name: Configure Fetch chain ID
+  become: yes
+  become_user: fetch_user
+  command: fetchd config chain-id {{ fetchchainid }}
+
+- name: Configure Fetch node
+  become: yes
+  become_user: fetch_user
+  command: fetchd config node https://rpc-fetchhub.fetch.ai:443
+
+- name: Initialize Fetch with chain ID
+  become: yes
+  become_user: fetch_user
+  command: fetchd init {{ validatorname }} --chain-id {{ fetchchainid }}
+
+- name: Download Fetch genesis file
+  become: yes
+  become_user: fetch_user
+  get_url:
+    url: https://raw.githubusercontent.com/fetchai/genesis-fetchhub/{{ fetchchainid }}/{{ fetchchainid }}/data/{{ genesis_file }}
+    dest: ~/.fetchd/config/genesis.json

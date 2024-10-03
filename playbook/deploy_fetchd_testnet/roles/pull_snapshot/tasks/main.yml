@@ -1,0 +1,11 @@
+---
+- name: Reset tendermint state
+  become: yes
+  command: /root/go/bin/fetchd tendermint unsafe-reset-all
+
+- name: Download and extract Fetch snapshot
+  shell: |
+    curl -v {{ snapshoturl }}/{{ snapshotfile }} -o- 2>headers.out | tee >(md5sum > md5sum.out) | gunzip -c | tar -xvf - --directory={{ fetch_data_dir }}
+  args:
+    executable: /bin/bash
+

@@ -1,0 +1,19 @@
+#User Editable Variables
+validatorname: YOUR_VALIDATOR_NAME
+genesis_file: genesis_migrated_5300200.json
+diskmount: /dev/sdb1
+diskpart: /dev/sdb
+
+## Leave These Variables
+gover: "go1.23.0"
+go_ver: "go1.23.0"
+go_bin_path: "/usr/local/go/bin/go"
+fetch_user: fetch_user
+fetch_run: root
+fetch_user_home: "/root/fetchd"
+fetch_data_dir: "/root/.fetchd"
+fetchchainid: fetchhub-4
+snapshotfile: fetchhub-4-pruned.tgz
+seed1: "17693da418c15c95d629994a320e2c4f51a8069b@connect-fetchhub.fetch.ai:36456"
+seed2: "a575c681c2861fe945f77cb3aba0357da294f1f2@connect-fetchhub.fetch.ai:36457" 
+seed3: "d7cda986c9f59ab9e05058a803c3d0300d15d8da@connect-fetchhub.fetch.ai:36458"

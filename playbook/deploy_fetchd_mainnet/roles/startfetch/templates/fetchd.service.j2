@@ -1,0 +1,12 @@
+[Unit]
+Description=Fetch Validator Daemon
+After=network.target
+
+[Service]
+User={{ fetch_run }}
+WorkingDirectory={{ fetch_data_dir }}
+ExecStart=fetchd start --p2p.seeds={{ seed1 }},{{ seed2 }},{{ seed3 }}
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

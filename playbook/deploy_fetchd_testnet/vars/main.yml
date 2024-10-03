@@ -1,0 +1,20 @@
+validatorname: cudo-fetch-test-validator-01
+genesis_file: genesis-dorado-827201.json
+genesis_url: "https://storage.googleapis.com/fetch-ai-testnet-genesis"
+diskmount: /dev/sda1
+diskpart: /dev/sda
+
+gover: "go1.23.0"
+go_ver: "go1.23.0"
+go_bin_path: "/usr/local/go/bin/go"
+fetch_user: fetch_user
+fetch_run: root
+fetch_user_home: "/root/fetchd"
+fetch_data_dir: "/root/.fetchd"
+fetch_user_password: "{{ 'your_secure_password' | password_hash('sha512') }}"
+fetchchainid: dorado-1
+snapshoturl: "https://storage.googleapis.com/fetch-ai-testnet-snapshots"
+snapshotfile: dorado-pruned.tgz
+seed1: "eb9b9717975b49a57e62ea93aa4480e091ae0660@connect-dorado.fetch.ai:36556"
+seed2: "46d2f86a255ece3daf244e2ca11d5be0f16cb633@connect-dorado.fetch.ai:36557"
+seed3: "066fc564979b1f3173615f101b62448ac7e00eb1@connect-dorado.fetch.ai:36558"

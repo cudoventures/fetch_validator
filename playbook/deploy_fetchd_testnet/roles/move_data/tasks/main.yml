@@ -1,0 +1,25 @@
+---
+- name: Backup existing .fetchd directory
+  become: yes
+  command: sudo mv "{{ fetch_data_dir }}" "{{ fetch_data_dir }}".orig
+
+- name: Mount "{{ diskmount }}" to "{{ fetch_data_dir }}"
+ 
+  mount:
+    path: "{{ fetch_data_dir }}"
+    src: "{{ diskmount }}"
+    fstype: ext3
+    opts: defaults
+    state: mounted
+
+- name: Add entry to fstab
+  mount:
+    path: "{{ fetch_data_dir }}"
+    src: "{{ diskmount }}"
+    fstype: ext3
+    opts: defaults
+    state: present
+
+- name: Restore data to mounted directory
+  become: yes
+  command: "sudo cp -r /root/.fetchd.orig/. {{ fetch_data_dir }}"

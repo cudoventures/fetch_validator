@@ -1,0 +1,16 @@
+---
+- name: Create .ssh directory for automgmt user
+  ansible.builtin.file:
+    path: /home/automgmt/.ssh
+    state: directory
+    mode: '0700'
+    owner: automgmt
+    group: automgmt
+
+- name: Add SSH key to authorized_keys for automgmt user
+  ansible.builtin.copy:
+    content: "{{ sshkey }}"
+    dest: /home/automgmt/.ssh/authorized_keys
+    owner: automgmt
+    group: automgmt
+    mode: '0644'

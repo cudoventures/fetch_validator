@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  vars_files:
+    - vars/main.yml
+  become: yes
+  roles:
+    - update_upgrade
+    - install_go
+    - install_software
+    - build_fetch
+    - connect_fetch
+    - format_disk
+    - move_data
+    - pull_snapshot
+    - startfetch

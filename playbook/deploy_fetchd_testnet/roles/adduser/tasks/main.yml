@@ -1,0 +1,36 @@
+---
+- name: Create fetch_user with no-login shell and custom home directory
+  user:
+    name: "{{ fetch_user }}"
+    home: "{{ fetch_user_home }}"
+    shell: /usr/sbin/nologin
+    createhome: no  # Do not create the home directory since it's custom
+    state: present
+
+- name: Set a password for fetch_user
+  user:
+    name: "{{ fetch_user }}"
+    password: "{{ 'your_secure_password' | password_hash('sha512') }}"
+  # Replace 'your_secure_password' with a strong password
+
+- name: Create the home directory for fetch_user
+  file:
+    path: "{{ fetch_user_home }}"
+    state: directory
+    owner: "{{ fetch_user }}"
+    group: "{{ fetch_user }}"
+    mode: '0755'
+
+- name: Add fetch_user to sudo group
+  ansible.builtin.user:
+    name: fetch_user
+    groups: sudo
+    append: yes  # Ensures that existing groups are not removed
+
+- name: Allow fetch_user to use su
+  lineinfile:
+    path: /etc/sudoers.d/"{{ fetch_user }}"
+    line: "fetch_user ALL=(ALL) NOPASSWD: ALL"
+    create: yes
+    state: present
+    mode: '0440'

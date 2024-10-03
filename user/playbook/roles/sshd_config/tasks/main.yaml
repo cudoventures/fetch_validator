@@ -1,0 +1,21 @@
+- name: Configure SSHD for key-based authentication
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'PubkeyAuthentication yes'
+    state: present
+  become: yes
+
+- name: Ensure AuthorizedKeysFile is set in SSHD config
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'AuthorizedKeysFile .ssh/authorized_keys'
+    state: present
+  become: yes
+
+- name: Restart SSH service to apply changes
+  ansible.builtin.systemd:
+    name: ssh
+    state: restarted
+  become: yes
+
+
